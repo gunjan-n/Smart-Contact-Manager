@@ -24,4 +24,22 @@ public class PageController {
         System.out.println("Services Page");
         return "services";
     }
+
+    @GetMapping("/contact")
+    public String contactPage(){
+        System.out.println("Contact Page");
+        return "contact";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        System.out.println("Login Page");
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register(){
+        System.out.println("Signup Page");
+        return "register";
+    }
 }
