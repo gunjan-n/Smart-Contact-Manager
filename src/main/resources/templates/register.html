@@ -4,6 +4,65 @@
     <title>SignUp</title>
 </head>
 <body>
-    <div id="content"></div>
+    <div id="content">
+        
+        <div class="grid grid-cols-12">
+            <!-- to center the card, 3 grids before card occupied -->
+            <div class="md:col-span-2 lg:col-span-3"></div>
+            <!-- takes up 6 grids out of 12 -->
+            <div class="col-span-12 md:col-span-8 lg:col-span-6 mt-3">
+                <!-- card -->
+                 <div href="#" class="bg-neutral-primary-soft block p-6 border-t-[10px] border-blue-700 rounded-xl shadow-xs hover:bg-neutral-secondary-medium">
+                    <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">SignUp Here</h5>
+
+                    <!-- form -->
+                    <form action="" class="mt-5">
+
+                        <!-- name field -->
+                        <div class="mb-3">
+                            <label for="name" class="block mb-2.5 text-sm font-medium text-heading">Name</label>
+                            <input type="text" id="name" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Enter your name" required />
+                         </div>
+
+                        <!-- email field -->
+                        <div class="mb-3">
+                            <label for="email" class="block mb-2.5 text-sm font-medium text-heading">Your email</label>
+                            <input type="email" id="email" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="example@email.com" required />
+                        </div>
+
+                        <!-- password field -->
+                        <div class="mb-3">
+                            <label for="password" class="block mb-2.5 text-sm font-medium text-heading">New Password</label>
+                            <input type="password" id="password" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required />
+                        </div>
+
+                        <!-- phone field -->
+                        <div class="mb-3">
+                            <label for="phone" class="block mb-2.5 text-sm font-medium text-heading">Contact Number</label>
+                            <input type="text" id="phone" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required />
+                        </div>
+
+                        <!-- about textarea field -->
+                         <div class="mb-3">
+                            <label for="about" class="block mb-2.5 text-sm font-medium text-heading">Write something about yourself</label>
+                            <textarea id="about" rows="6" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body" placeholder="Write here..."></textarea>
+                         </div>
+
+                         <!-- buttons -->
+                        <div class="mb-3 flex justify-center space-x-3">
+                            <!-- signup button -->
+                            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SignUp</button>
+                            <!-- reset button -->
+                            <button type="button" class="text-orange-500 bg-neutral-primary border border-orange-500 hover:bg-orange-500 hover:text-white focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-lg text-sm px-4 py-2.5 focus:outline-none">Reset</button>
+                        </div>
+                        
+                        
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>
