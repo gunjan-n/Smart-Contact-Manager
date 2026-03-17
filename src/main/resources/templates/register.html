@@ -16,44 +16,44 @@
                     <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">SignUp Here</h5>
 
                     <!-- form -->
-                    <form action="" class="mt-5">
+                    <form data-th-action="@{'/register-user'}" method="post" data-th-object="${userForm}" class="mt-5">
 
                         <!-- name field -->
                         <div class="mb-3">
                             <label for="name" class="block mb-2.5 text-sm font-medium text-heading">Name</label>
-                            <input type="text" id="name" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Enter your name" required />
+                            <input data-th-field="*{name}" type="text" id="name" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="Enter your name" required />
                          </div>
 
                         <!-- email field -->
                         <div class="mb-3">
                             <label for="email" class="block mb-2.5 text-sm font-medium text-heading">Your email</label>
-                            <input type="email" id="email" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="example@email.com" required />
+                            <input data-th-field="*{email}" type="email" id="email" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" placeholder="example@email.com" required />
                         </div>
 
                         <!-- password field -->
                         <div class="mb-3">
                             <label for="password" class="block mb-2.5 text-sm font-medium text-heading">New Password</label>
-                            <input type="password" id="password" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required />
+                            <input data-th-field="*{password}" type="password" id="password" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required />
                         </div>
 
                         <!-- phone field -->
                         <div class="mb-3">
                             <label for="phone" class="block mb-2.5 text-sm font-medium text-heading">Contact Number</label>
-                            <input type="text" id="phone" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required />
+                            <input data-th-field="*{phoneNumber}" type="text" id="phone" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" required />
                         </div>
 
                         <!-- about textarea field -->
                          <div class="mb-3">
                             <label for="about" class="block mb-2.5 text-sm font-medium text-heading">Write something about yourself</label>
-                            <textarea id="about" rows="6" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body" placeholder="Write here..."></textarea>
+                            <textarea data-th-field="*{about}" id="about" rows="6" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body" placeholder="Write here..."></textarea>
                          </div>
 
                          <!-- buttons -->
                         <div class="mb-3 flex justify-center space-x-3">
                             <!-- signup button -->
-                            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SignUp</button>
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SignUp</button>
                             <!-- reset button -->
-                            <button type="button" class="text-orange-500 bg-neutral-primary border border-orange-500 hover:bg-orange-500 hover:text-white focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-lg text-sm px-4 py-2.5 focus:outline-none">Reset</button>
+                            <button type="reset" class="text-orange-500 bg-neutral-primary border border-orange-500 hover:bg-orange-500 hover:text-white focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-lg text-sm px-4 py-2.5 focus:outline-none">Reset</button>
                         </div>
                         
                         
