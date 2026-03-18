@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.scm.entities.User;
 import com.scm.forms.UserForm;
+import com.scm.helpers.Message;
+import com.scm.helpers.MessageType;
 import com.scm.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -58,8 +62,9 @@ public class PageController {
 
     // processing user registration
     @PostMapping("/register-user")
-    public String registerUser(@ModelAttribute UserForm userForm){
+    public String registerUser(@ModelAttribute UserForm userForm, HttpSession session){
 
+        // System.out.println("userForm : "+userForm);
         // User user = User.builder().name(userForm.getName()).email(userForm.getEmail()).password(userForm.getPassword()).about(userForm.getAbout()).phoneNumber(userForm.getPhoneNumber()).profilePic("").build();
         User user = new User();
         user.setName(userForm.getName());
@@ -68,7 +73,15 @@ public class PageController {
         user.setAbout(userForm.getAbout());
         user.setPhoneNumber(userForm.getPhoneNumber());
         user.setProfilePic("");
+        // System.out.println("user : " + user);
+
         User savedUser = userService.saveUser(user);
+
+        Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+
+        // add the alert message
+        session.setAttribute("message", message);
+
         return "redirect:/register";
     }
 }

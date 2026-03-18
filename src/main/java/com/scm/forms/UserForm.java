@@ -17,6 +17,13 @@ public class UserForm {
     private String email;
     private String password;
     private String about;
-    private String phoneNumber; 
+    private String phoneNumber;
+
+
+    @Override
+    public String toString() {
+        return "UserForm [name=" + name + ", email=" + email + ", password=" + password + ", about=" + about
+                + ", phoneNumber=" + phoneNumber + "]";
+    }    
 
 }

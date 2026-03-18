@@ -50,4 +50,15 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Contact> contacts = new ArrayList<>();
+
+
+    @Override
+    public String toString() {
+        return "User [userId=" + userId + ", name=" + name + ", email=" + email + ", password=" + password + ", about="
+                + about + ", profilePic=" + profilePic + ", phoneNumber=" + phoneNumber + ", enabled=" + enabled
+                + ", emailVerified=" + emailVerified + ", phoneVerified=" + phoneVerified + ", provider=" + provider
+                + ", providerUserId=" + providerUserId + ", contacts=" + contacts + "]";
+    }
+
+    
 }
