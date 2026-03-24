@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-th-replace="~{base :: parent(~{::#content}, ~{::title}, ~{})}" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title data-th-text="${loggedInUser.name} +' SCM'">Profile Page</title>
 </head>
 <body>
-    <h1>This is user profile page</h1>
+    <div id="content">
+
+        <!-- if user is loggedIn : sidebar -->
+        <div data-th-if="${loggedInUser}">
+            <div data-th-replace="~{user/sidebar::sidebar}"></div>
+        </div>
+
+        <div class="sm:pl-64 pt-20">
+            <div class="flex justify-center flex-col items-center"></div>
+        </div>
+    </div>
 </body>
 </html>

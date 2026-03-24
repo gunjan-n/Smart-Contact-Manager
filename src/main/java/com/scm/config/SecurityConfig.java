@@ -40,17 +40,19 @@ public class SecurityConfig {
             authorize.anyRequest().permitAll();
         });
 
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
         // form default login
         httpSecurity.formLogin(formLogin -> {
             formLogin.loginPage("/login");
             formLogin.loginProcessingUrl("/authenticate");
-            formLogin.successForwardUrl("/user/dashboard");
+            formLogin.defaultSuccessUrl("/user/profile");
+            // formLogin.successForwardUrl("/user/profile");
             // formLogin.failureForwardUrl("/login?error=true");
             formLogin.usernameParameter("email");
             formLogin.passwordParameter("password");
         });
 
-        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        
         httpSecurity.logout(logoutForm -> {
             logoutForm.logoutUrl("/logout");
             logoutForm.logoutSuccessUrl("/login?logout=true");
