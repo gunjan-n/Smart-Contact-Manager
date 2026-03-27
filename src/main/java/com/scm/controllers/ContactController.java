@@ -1,15 +1,109 @@
 package com.scm.controllers;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.scm.entities.Contact;
+import com.scm.entities.User;
+import com.scm.forms.ContactForm;
+import com.scm.helpers.Helper;
+import com.scm.helpers.Message;
+import com.scm.helpers.MessageType;
+import com.scm.services.ContactService;
+import com.scm.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/user/contacts")
 public class ContactController {
 
+    @Autowired
+    private ContactService contactService;
+
+    @Autowired
+    private UserService userService;
+
+    private Path path;
+
     @GetMapping("/add")
-    public String addContactView(){
+    public String addContactView(Model model){
+        ContactForm contactForm = new ContactForm();
+        model.addAttribute("contactForm", contactForm);
+
         return "user/add_contact";
+    }
+
+    @PostMapping("/add")
+    public String saveContact(@Valid @ModelAttribute ContactForm contactForm, BindingResult bindingResult, Authentication authentication, HttpSession session){
+        // process contact form data
+        System.out.println(contactForm);
+
+        // validate form
+        if (bindingResult.hasErrors()) {
+            Message errorMessage = Message.builder().content("Please correct the following errors").type(MessageType.red).build();
+
+            // add the alert message
+            session.setAttribute("message", errorMessage);
+            return "user/add_contact";
+        }
+
+        try{
+            String username = Helper.getEmailOfLoggedInUser(authentication);
+            User user = userService.getUserByEmail(username);
+            
+            Contact contact = new Contact();
+
+            // process the contact picture
+            if (contactForm.getContactImage().isEmpty()) {
+                
+            } else {
+                // upload the file to folder
+                contact.setPicture(contactForm.getContactImage().getOriginalFilename());
+
+                File saveFile = new ClassPathResource("static/images").getFile();
+                path = Paths.get(saveFile.getAbsolutePath()+File.separator+contactForm.getContactImage().getOriginalFilename());
+                Files.copy(contactForm.getContactImage().getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                
+            }
+            contact.setName(contactForm.getName());
+            contact.setFavorite(contactForm.isFavorite());
+            contact.setEmail(contactForm.getEmail());
+            contact.setPhoneNumber(contactForm.getPhoneNumber());
+            contact.setAddress(contactForm.getAddress());
+            contact.setDescription(contactForm.getDescription());
+            contact.setLinkedInLink(contactForm.getLinkedInLink());
+            contact.setWebsiteLint(contactForm.getWebsiteLink());
+            contact.setUser(user);
+
+            contactService.save(contact);
+
+            Message message = Message.builder().content("Contact Saved Successfuly").type(MessageType.green).build();
+
+            // add the alert message
+            session.setAttribute("message", message);
+        } catch (Exception e){
+            System.out.println("ERROR " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return "redirect:/user/contacts/add";
     }
 }
