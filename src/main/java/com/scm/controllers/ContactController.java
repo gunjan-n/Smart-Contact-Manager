@@ -5,9 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,7 +75,7 @@ public class ContactController {
 
             // process the contact picture
             if (contactForm.getContactImage().isEmpty()) {
-                
+                contact.setPicture("userImage.png");
             } else {
                 // upload the file to folder
                 contact.setPicture(contactForm.getContactImage().getOriginalFilename());
@@ -90,7 +92,7 @@ public class ContactController {
             contact.setAddress(contactForm.getAddress());
             contact.setDescription(contactForm.getDescription());
             contact.setLinkedInLink(contactForm.getLinkedInLink());
-            contact.setWebsiteLint(contactForm.getWebsiteLink());
+            contact.setWebsiteLink(contactForm.getWebsiteLink());
             contact.setUser(user);
 
             contactService.save(contact);
@@ -105,5 +107,17 @@ public class ContactController {
         }
 
         return "redirect:/user/contacts/add";
+    }
+
+    // view contacts page
+    @GetMapping
+    public String viewContacts(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "5") int size, @RequestParam(value = "sortBy", defaultValue = "name") String sortBy, @RequestParam(value = "direction", defaultValue = "asce") String direction, Model model, Authentication authentication){
+        // gett user's all contact
+        String username = Helper.getEmailOfLoggedInUser(authentication);
+        User user = userService.getUserByEmail(username);
+        Page<Contact> pageContacts = contactService.getContactsByUser(user, page, size, sortBy, direction);
+
+        model.addAttribute("pageContacts", pageContacts);
+        return "user/contacts";
     }
 }

@@ -32,7 +32,7 @@ public class Contact {
     @Column(length = 1000)
     private String description;
     private boolean favorite;
-    private String websiteLint;
+    private String websiteLink;
     private String linkedInLink;
 
     @ManyToOne

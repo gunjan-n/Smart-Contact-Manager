@@ -88,8 +88,8 @@
                             <!-- file field from flowbite for picture -->
                             <div class="mb-3">
                                 <label class="block mb-2.5 text-sm font-medium text-heading" for="file_input">Upload file</label>
-                                <input data-th-field="*{contactImage}" id="image_input" class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body" id="file_input" type="file">
-                                <img src="image_preview" alt="" class="max-h-52 mx-auto rounded-lg shadow" />
+                                <input data-th-field="*{contactImage}" class="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body" id="image_input" type="file">
+                                <img id="image_preview" src="" alt="" class="max-h-52 mx-auto rounded-lg shadow" />
                             </div>
                             <!-- check box for faovrite from flowbite -->
                             <div class="flex items-center mb-3">
@@ -100,7 +100,7 @@
                             <!-- buttons -->
                             <div class="mb-3 flex justify-center space-x-3">
                                 <!-- signup button -->
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SignUp</button>
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Contact</button>
                                 <!-- reset button -->
                                 <button type="reset" class="text-orange-500 bg-neutral-primary border border-orange-500 hover:bg-orange-500 hover:text-white focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-lg text-sm px-4 py-2.5 focus:outline-none">Reset</button>
                             </div>
