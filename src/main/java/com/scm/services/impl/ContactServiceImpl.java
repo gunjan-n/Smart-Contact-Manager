@@ -51,12 +51,7 @@ public class ContactServiceImpl implements ContactService {
         contactRepository.delete(contact);
     }
 
-    @Override
-    public List<Contact> search(String name, String email, String phoneNumber) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
-    }
-
+    
     @Override
     public List<Contact> getContactsByUserId(String userId) {
         return contactRepository.findByUserId(userId);
@@ -68,5 +63,33 @@ public class ContactServiceImpl implements ContactService {
         Pageable pageable = PageRequest.of(page, size, sort);
         return contactRepository.findByUser(user, pageable);
     }
+
+    @Override
+    public Page<Contact> searchByName(User user, String nameKeyword, int size, int page, String sortBy, String order) {
+
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        return contactRepository.findByUserAndNameContaining(user, nameKeyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchByEmail(User user, String emailKeyword, int size, int page, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        return contactRepository.findByUserAndEmailContaining(user, emailKeyword, pageable);
+    }
+
+    @Override
+    public Page<Contact> searchByPhoneNumber(User user, String phoneNumberKeyword, int size, int page, String sortBy,
+            String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        return contactRepository.findByUserAndPhoneNumberContaining(user, phoneNumberKeyword, pageable);
+    }
+
+    
 
 }

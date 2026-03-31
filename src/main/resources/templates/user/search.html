@@ -12,7 +12,8 @@
         </div>
 
         <div class="sm:pl-64 pt-20 m-4">
-            <h1 class="text-5xl text-center">List of all your Contacts</h1>
+            <h1 class="text-5xl text-center">Search Results</h1>
+            <p data-th-text="${pageContacts.totalElements}+' Results found'"></p>
             <div class="contacts_container mt-3">
                 <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-xl border dark:border-gray-500 dark:bg-gray-700 shadow-xs">
                     <form data-th-object="${contactSearchForm}" data-th-action="@{'/user/contacts/search'}" method="get">
@@ -21,7 +22,7 @@
                         
                             <div>
                                 <select data-th-field="*{field}" name="field" id="countries" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border dark:border-gray-500 text-heading text-sm rounded-xl focus:ring-brand focus:border-brand shadow-xs placeholder:text-body dark:text-white dark:bg-gray-500">
-                                    <option value="" selected>Search By</option>
+                                    <option selected value="">Search By</option>
                                     <option value="name">Name</option>
                                     <option value="phone">Phone</option>
                                     <option value="email">Email</option>
@@ -49,7 +50,7 @@
                             </div>
                         </div>
                     </form>
-                    <table class="w-full text-sm text-left rtl:text-right text-body">
+                    <table data-th-unless="${pageContacts.empty}" class="w-full text-sm text-left rtl:text-right text-body">
                         <thead class="text-sm text-body bg-gray-50 border-b border-t border-slate-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3 font-medium">
@@ -101,19 +102,21 @@
                     </table>
 
                     <!-- pagination -->
-                    <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
+                    <nav data-th-unless="${pageContacts.empty}" class="flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
                         <ul class="flex -space-x-px text-sm">
                             <li data-th-unless="${pageContacts.first}">
-                                <a data-th-href="@{'/user/contacts?page='+${pageContacts.number-1}}" class="flex items-center justify-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium rounded-s-base text-sm px-3 h-9 focus:outline-none">Previous</a>
+                                <a data-th-href="@{'/user/contacts/search?page='+${pageContacts.number-1}+'&field='+${contactSearchForm.field}+'&keyword='+${contactSearchForm.keyword}}" class="flex items-center justify-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium rounded-s-base text-sm px-3 h-9 focus:outline-none">Previous</a>
                             </li>
                             <li data-th-each="index : ${#numbers.sequence(0, pageContacts.totalPages-1)}" data-th-classappend="${index==pageContacts.number} ? 'bg-blue-600 text-white dark:bg-gray-600' : 'bg-gray-50 text-body dark:bg-gray-800'" >
-                                <a data-th-href="@{'/user/contacts?page='+${index}}" class="flex items-center justify-center box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium text-sm w-9 h-9 focus:outline-none dark:text-white"><span data-th-text="${index+1}"></span></a>
+                                <a data-th-href="@{'/user/contacts/search?page='+${index}+'&field='+${contactSearchForm.field}+'&keyword='+${contactSearchForm.keyword}}" class="flex items-center justify-center box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium text-sm w-9 h-9 focus:outline-none dark:text-white"><span data-th-text="${index+1}"></span></a>
                             </li>
                             <li data-th-unless="${pageContacts.last}">
-                                <a data-th-href="@{'/user/contacts?page='+${pageContacts.number+1}}" class="flex items-center justify-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium rounded-e-base text-sm px-3 h-9 focus:outline-none">Next</a>
+                                <a data-th-href="@{'/user/contacts/search?page='+${pageContacts.number+1}+'&field='+${contactSearchForm.field}+'&keyword='+${contactSearchForm.keyword}}" class="flex items-center justify-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium rounded-e-base text-sm px-3 h-9 focus:outline-none">Next</a>
                             </li>
                         </ul>
                     </nav>
+
+                    <h1 data-th-if="${pageContacts.empty}" class="text-3xl p-4 text-center">No Result Found</h1>
                 </div>
             </div>
         </div>
