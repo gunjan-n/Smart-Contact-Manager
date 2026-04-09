@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,5 +147,17 @@ public class ContactController {
         model.addAttribute("contactSearchForn", contactSearchForm);
         model.addAttribute("pageContacts", pageContact);
         return "user/search";
+    }
+
+    @RequestMapping("/delete/{contactId}")
+    public String deleteContact(@PathVariable("contactId") String contactId, HttpSession session){
+        contactService.delete(contactId);
+
+        Message message = Message.builder().content("Contact deleted Successfuly").type(MessageType.green).build();
+
+        // add the alert message
+        session.setAttribute("message", message);
+
+        return "redirect:/user/contacts";
     }
 }
