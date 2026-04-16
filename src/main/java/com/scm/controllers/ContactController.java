@@ -1,6 +1,7 @@
 package com.scm.controllers;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -160,4 +161,87 @@ public class ContactController {
 
         return "redirect:/user/contacts";
     }
+
+    // contact update form view
+    @GetMapping("/update/form/{contactId}")
+    public String updateContactForm(@PathVariable("contactId") String contactId, Model model) {
+
+        Contact contact = contactService.getContactById(contactId);
+
+        ContactForm contactForm = new ContactForm();
+        contactForm.setName(contact.getName());
+        contactForm.setEmail(contact.getEmail());
+        contactForm.setPhoneNumber(contact.getPhoneNumber());
+        contactForm.setAddress(contact.getAddress());
+        contactForm.setDescription(contact.getDescription());
+        contactForm.setFavorite(contact.isFavorite());
+        contactForm.setWebsiteLink(contact.getWebsiteLink());
+        contactForm.setLinkedInLink(contact.getLinkedInLink());
+
+        contactForm.setPicture(contact.getPicture());
+
+        model.addAttribute("contactForm", contactForm);
+        model.addAttribute("contactId", contactId);
+
+        return "user/update_contact_form";
+    }
+
+    // update contact
+    @PostMapping("/update/{contactId}")
+    public String updateContact(@PathVariable("contactId") String contactId, @Valid @ModelAttribute ContactForm contactForm, BindingResult bindingResult, Model model, HttpSession session){
+
+        // validate form
+        if (bindingResult.hasErrors()) {
+            Message errorMessage = Message.builder().content("Please correct the following errors").type(MessageType.red).build();
+
+            // add the alert message
+            session.setAttribute("message", errorMessage);
+            return "user/update_contact_form";
+        }
+
+        Contact contact = new Contact();
+
+        // process the contact picture
+            if (contactForm.getContactImage().isEmpty()) {
+                if (contactForm.getPicture() == null|| contactForm.getPicture().isEmpty()) {
+                    contact.setPicture("userImage.png");
+                } else {
+                    contact.setPicture(contactForm.getPicture());
+                }
+            } else {
+                // upload the file to folder
+                contact.setPicture(contactForm.getContactImage().getOriginalFilename());
+
+                File saveFile;
+                try {
+                    saveFile = new ClassPathResource("static/images").getFile();
+                
+                    path = Paths.get(saveFile.getAbsolutePath()+File.separator+contactForm.getContactImage().getOriginalFilename());
+                    Files.copy(contactForm.getContactImage().getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
+            }
+            contact.setName(contactForm.getName());
+            contact.setFavorite(contactForm.isFavorite());
+            contact.setEmail(contactForm.getEmail());
+            contact.setPhoneNumber(contactForm.getPhoneNumber());
+            contact.setAddress(contactForm.getAddress());
+            contact.setDescription(contactForm.getDescription());
+            contact.setLinkedInLink(contactForm.getLinkedInLink());
+            contact.setWebsiteLink(contactForm.getWebsiteLink());
+
+            contact.setId(contactId);
+
+        contactService.update(contact);
+
+        Message message = Message.builder().content("Contact Saved Successfuly").type(MessageType.green).build();
+
+        // add the alert message
+        session.setAttribute("message", message);
+
+        return "redirect:/user/contacts";
+    }
+    
 }

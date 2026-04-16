@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{})}">
+<html lang="en" th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
 <head>
     <title>Contacts Page</title>
 </head>
@@ -92,9 +92,12 @@
                                 <td class="px-6 py-4">
                                     <!-- <a href="#" class="font-medium text-fg-brand hover:underline">Edit user</a> -->
                                     <div>
-                                        <a href=""><i class="fa-solid fa-trash w-6 h-6"></i></a>
+                                        <!-- delete contact -->
+                                        <button data-th-onclick="deleteContact([[${c.id}]])"><i class="fa-solid fa-trash w-6 h-6"></i></button>
+                                        <!-- update contact -->
                                         <a href=""><i class="fa-solid fa-pen w-6 h-6"></i></a>
-                                        <a href=""><i class="fa-solid fa-eye w-6 h-6"></i></a>
+                                        <!-- view contact -->
+                                        <button data-th-onclick="loadContactData([[${c.id}]])"><i class="fa-solid fa-eye w-6 h-6"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -119,7 +122,15 @@
                     <h1 data-th-if="${pageContacts.empty}" class="text-3xl p-4 text-center">No Result Found</h1>
                 </div>
             </div>
+
+            <div data-th-replace="~{user/contact_modals :: singleContact}"></div>
+
         </div>
     </div>
+
+    <script data-th-src="@{'/js/contacts.js'}"></script>
+    <script>
+        console.log("INLINE SCRIPT WORKING");
+    </script>
 </body>
 </html>

@@ -86,9 +86,10 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
-                                        <div data-th-if="*{favorite}" class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> 
-                                        <a data-th-href="@{*{websiteLink}}" target="_blank"><i class="fa-solid fa-link w-8 h-8"></i></a>
-                                        <a data-th-href="@{*{linkedInLink}}" target="_blank"><i class="fa-brands fa-linkedin w-8 h-8"></i></a>
+                                        <!-- <div data-th-if="*{favorite}" class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>  -->
+                                        <i data-th-if="*{favorite}" class="fas fa-star text-yellow-400"></i>
+                                        <a data-th-href="@{*{websiteLink}}" target="_blank" class="ml-2"><i class="fa-solid fa-link w-8 h-8"></i></a>
+                                        <a data-th-href="@{*{linkedInLink}}" target="_blank" class="ml-2"><i class="fa-brands fa-linkedin w-8 h-8"></i></a>
 
                                     </div>
                                 </td>
@@ -98,7 +99,7 @@
                                         <!-- delete contact -->
                                         <button data-th-onclick="deleteContact([[${c.id}]])"><i class="fa-solid fa-trash w-6 h-6"></i></button>
                                         <!-- update contact -->
-                                        <a href=""><i class="fa-solid fa-pen w-6 h-6"></i></a>
+                                        <a data-th-href="@{'/user/contacts/update/form/'+ *{id}}"><i class="fa-solid fa-pen w-6 h-6"></i></a>
                                         <!-- view contact -->
                                         <button data-th-onclick="loadContactData([[${c.id}]])"><i class="fa-solid fa-eye w-6 h-6"></i></button>
                                     </div>

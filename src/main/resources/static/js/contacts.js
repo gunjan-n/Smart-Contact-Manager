@@ -50,6 +50,22 @@ async function loadContactData(id) {
         console.log(data);
         document.querySelector('#contact_name').innerHTML = data.name;
         document.querySelector('#contact_email').innerHTML = data.email;
+        document.querySelector('#contact_image').src = '/images/' + data.picture;
+        document.querySelector('#contact_address').innerHTML = data.address;
+        document.querySelector('#contact_phone').innerHTML = data.phoneNumber;
+        document.querySelector('#contact_about').innerHTML = data.description;
+        const contactFavorite = document.querySelector("#contact_favorite");
+        if(data.favorite){
+            contactFavorite.innerHTML = '<i class="fas fa-star text-yellow-400"></i> Favorite Contact';
+        }
+        else {
+            contactFavorite.innerHTML = "Not a Favorite Contact";
+        }
+        document.querySelector('#contact_website').href = data.websiteLink;
+        document.querySelector('#contact_website').innerHTML = data.websiteLink;
+        document.querySelector('#contact_linkedin').href = data.linkedInLink;
+        document.querySelector('#contact_linkedin').innerHTML = data.linkedInLink;
+
         openContactModal();
     } catch (error) {
         console.log("Error : ", error);

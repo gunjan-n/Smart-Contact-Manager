@@ -4,10 +4,14 @@
     <div id="view_contact_modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
-            <div class="relative bg-gray-50 dark:bg-slate-800 border border-default rounded-base shadow-sm p-4 md:p-6">
+            <div class="relative bg-gray-50 dark:bg-gray-800 border border-default rounded-base shadow-sm p-4 md:p-6">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between border-b border pb-4 md:pb-5">
-                    <div>
+                <div class="flex justify-between border-b pb-4 md:pb-5  dark:bg-gray-800">
+
+                    <div class=""></div>
+                    <div class="p-5 flex flex-col justify-center items-center space-y-2 mr-0 ml-auto">
+                        <!-- contact image -->
+                         <img id="contact_image" class="w-32 h-32 rounded-full" src="" alt="contact image">
                         <!-- contact name -->
                         <h3 id="contact_name" class="text-lg font-medium text-heading text-black dark:text-white"></h3>
                         <!-- contact email -->
@@ -20,17 +24,36 @@
                 </div>
                 <!-- Modal body -->
                 <div class="space-y-4 md:space-y-6 py-4 md:py-6">
-                    <p class="leading-relaxed text-body">
-                        With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+                    <!-- remaining contact information -->
+                    <p class="relative leading-relaxed overflow-x-auto">
+                        <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-300">
+                            <tbody>
+                                <tr class="bg-gray-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-300"><span id="contact_address"></span></td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-300"><span id="contact_phone"></span></td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-300"><span id="contact_about"></span></td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-300"><span id="contact_favorite"></span></td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-300"><a id="contact_website" href="" target="_blank"></a></td>
+                                </tr>
+                                <tr class="bg-gray-50 hover:bg-white dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-300"><a id="contact_linkedin" href="" target="_blank"></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </p>
-                    <p class="leading-relaxed text-body">
-                        The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-                    </p>
+                    
                 </div>
                 <!-- Modal footer -->
-                <div class="flex items-center border-t border-default space-x-4 pt-4 md:pt-5">
-                    <button data-modal-hide="default-modal" type="button" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">I accept</button>
-                    <button data-modal-hide="default-modal" type="button" class="text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Decline</button>
+                <div class="text-center border-t border-default space-x-4 pt-4 md:pt-5">
+                    <button onclick="closeContactModal()" data-modal-hide="default-modal" type="button" class="text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none text-center">Close</button>
                 </div>
             </div>
         </div>
